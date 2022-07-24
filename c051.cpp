@@ -1,44 +1,36 @@
 #include <iostream>
+#include <algorithm>
+#include <vector>
 
-int ptn(int ary[4], int data[4], int n) {
+int pt(const std::vector<int> &v) {
+    int cnt = 1;
     int sum = 0;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < ary[i]; j++) {
-            if (i%2 == 1) {
-                sum += data[i] * 10;
-            } else {
-                sum += data[i];
-            }
+    for (int value : v) {
+        if (cnt++%2 == 0) {
+            sum += value;
+            continue;
         }
+        sum += value * 10;
     }
     return sum;
 }
 
 int main() {
-    int x[4], p[4];
-    std::cin >> x[0] >> x[1] >> x[2] >> x[3];
-    int max = -1;
-    int c = 0;
-    for (int i = 0; i <= 1; i++) {
-        p[0] = i;
-        for (int j = 0; j <= 1; j++) {
-            p[1] = j;
-            for (int k = 0; k <= 1; k++) {
-                p[2] = k;
-                for (int w = 0; w <= 1; w++) {
-                    p[3] = w;
-                    c = ptn(p, x, 4);
-                    if (max == -1) {
-                        max = c;
-                        continue;
-                    }
-                    if (max < c) {
-                        max = c;
-                    }
-                }
-            }
-        }
-    }
-    std::cout << max << std::endl;
+    int a, b, c, d;
+    std::cin >> a >> b >> c >> d;
+
+    std::vector<int> v, s;
+    v.push_back(a);
+    v.push_back(b);
+    v.push_back(c);
+    v.push_back(d);
+
+    do {
+        s.push_back(pt(v));
+    } while (std::next_permutation(v.begin(), v.end()));
+
+    int ans = *std::max_element(s.begin(), s.end());
+    std::cout << ans << std::endl;
+
     return 0;
 }
