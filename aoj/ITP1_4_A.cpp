@@ -1,8 +1,8 @@
 #include <iostream>
+#include <cstdio>
 
 int main() {
     int a, b;
     std::cin >> a >> b;
-    std::cout << a/b << " " << a%b << " " << (double) a/b << std::endl;
-    return 0;
+    printf("%d %d %0.5f", a/b, a%b, (double) a/b);
 }
