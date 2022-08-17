@@ -5,21 +5,33 @@ int main () {
     std::cin >> n;
 
     int a[n], b[n];
+    int ans[n];
+
     for (int i = 0; i < n; i++) std::cin >> a[i] >> b[i];
 
-    int f = 0, e = 0, max = 0, min = 0;
+    int s, e, min = 0, max = 0;
     for (int i = 0; i < n; i++) {
-        f = a[i];
+        s = a[i];
         e = b[i];
-        for (int j = 0; j < n; j++) {
-            if (a[i] > a[j]) continue;
-            if (e == a[j] || e + 1 == a[j]) {
-                min = f;
+        for (int j = i; j < n; j++) {
+            if (min == 0) min = s;
+            if (max == 0) max = e;
+            if (i == j) continue;
+            if ((a[j] == e||a[j] == e+1) || (a[j] >= s && a[j] <= e)) {
                 e = b[j];
-                break;
+                max = e;
             }
         }
-        if (max < (min - 1) + e) max =  e - (min - 1);
+        ans[i] = max - (min - 1);
+        max = 0; min = 0;
     }
-    std::cout << max << std::endl;
+
+    int at = 0;
+    for (int i = 0; i < n; i++) {
+        if (at == 0) at = ans[i];
+        if (at < ans[i]) {
+            at = ans[i];
+        }
+    }
+    std::cout << at << std::endl;
 }
